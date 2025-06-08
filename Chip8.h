@@ -38,6 +38,12 @@ class Chip8
    void OP_3XKK();
    void OP_4XKK();
    void OP_5XY0();
+   void OP_6XKK();
+   void OP_7XKK();
+   void OP_8XY0();
+   void OP_8XY1();
+   void OP_8XY2();
+   void OP_8XY3();
 
    uint8_t  registers[ 16 ]{};
    uint8_t  memory[ 4096 ]{};

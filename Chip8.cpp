@@ -112,3 +112,63 @@ void Chip8::OP_5XY0()
       pc += 2;
    }
 }
+
+// The interpreter puts the value kk into register Vx
+void Chip8::OP_6XKK()
+{
+   uint8_t Vx   = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t byte = ( opcode & 0x00FFu );
+
+   registers[ Vx ] = byte;
+}
+
+// Adds the value kk to the value of register Vx, then stores the result in Vx
+void Chip8::OP_7XKK()
+{
+   uint8_t Vx   = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t byte = ( opcode & 0x00FFu );
+
+   registers[ Vx ] += byte;
+}
+
+// Stores the value of register Vy in register Vx.
+void Chip8::OP_8XY0()
+{
+   uint8_t Vx = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t Vy = ( opcode & 0x00F0u ) >> 4u;
+
+   registers[ Vx ] = registers[ Vy ];
+}
+
+// Performs a bitwise OR on the values of Vx and Vy, then stores the result in Vx.
+// A bitwise OR compares the corrseponding bits from two values, and if either bit is 1,
+// then the same bit in the result is also 1. Otherwise, it is 0.
+void Chip8::OP_8XY1()
+{
+   uint8_t Vx = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t Vy = ( opcode & 0x00F0u ) >> 4u;
+
+   Vx |= Vy;
+}
+
+// Performs a bitwise AND on the values of Vx and Vy, then stores the result in Vx.
+// A bitwise AND compares the corrseponding bits from two values, and if both bits are 1,
+// then the same bit in the result is also 1. Otherwise, it is 0.
+void Chip8::OP_8XY2()
+{
+   uint8_t Vx = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t Vy = ( opcode & 0x00F0u ) >> 4u;
+
+   registers[ Vx ] &= registers[ Vy ];
+}
+
+// Performs a bitwise exclusive OR on the values of Vx and Vy, then stores the result in Vx.
+// An exclusive OR compares the corrseponding bits from two values, and if the bits are not both the same,
+// then the corresponding bit in the result is set to 1. Otherwise, it is 0.
+void Chip8::OP_8XY3()
+{
+   uint8_t Vx = ( opcode & 0x0F00u ) >> 8u;
+   uint8_t Vy = ( opcode & 0x00F0u ) >> 4u;
+
+   registers[ Vx ] ^= registers[ Vy ];
+}
